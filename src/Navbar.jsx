@@ -1,10 +1,22 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import { FaBars } from 'react-icons/fa';
 import { links, social } from './data';
 import logo from './logo.svg';
 
 const Navbar = () => {
-    const [showLinks, setShowLinks] = useState(false);
+    const [showLinks, setShowLinks] = useState(true);
+    const linksContainer = useRef(null);
+
+    const newHandler = () => {
+        console.log(linksContainer?.current?.getBoundingClientRect()?.height);
+    }
+
+
+    const containerStyles = {
+        height: showLinks ? `${linksContainer?.current?.getBoundingClientRect()?.height}px` : '0px' 
+    }
+    
+    
 
   return (
     <nav>
@@ -13,13 +25,13 @@ const Navbar = () => {
           <img src={logo} alt="logo" className="logo" />
           <button
             className="nav-toggle"
-            onClick={() => setShowLinks(!showLinks)}
+            onClick={() => {setShowLinks(!showLinks); newHandler()}}
           >
             <FaBars />
           </button>
         </div>
-        <div className={showLinks ? 'links-container show-container' : 'links-container'}>
-          <ul className="links">
+        <div  className='links-container' style={containerStyles}>
+          <ul ref={linksContainer} className="links">
             {links.map((link) => {
               const { id, url, text } = link;
               return (

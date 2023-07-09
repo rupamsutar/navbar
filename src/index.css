@@ -305,14 +305,10 @@ nav {
 }
 
 .links-container {
-  height: 0;
+  height: 10rem;
   overflow: hidden;
   transition: var(--transition);
 
-}
-
-.show-container {
-  height: 10rem;
 }
 
 
